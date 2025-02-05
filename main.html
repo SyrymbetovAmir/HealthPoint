@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Management</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <select class="select-nav" name="lang" id="">
+                    <option value="English">English</option>
+                    <option value="Русский">Русский</option>
+                    <option value="Қазақша">Қазақша</option>
+                </select>
+                <a class="signin" href="#">Sign in</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <div class="ls">
+                <h2 class="h2">Welcome to</h2>
+                <h1 class="h1">HealthPoint</h1>
+                <p class="main-p">Наше программное решение создано для удобства врачей и оптимизации всех рабочих процессов. Интуитивно понятный интерфейс, быстрый доступ к данным и возможность вести электронные истории болезни помогут сосредоточиться на главном — здоровье пациентов.</p>
+                <img class="main-img" src="img/clinic_main_image.png" alt="">
+            </div>
+
+                
+                <form class="rs" action="" id="loginForm">
+                    <h2 class="h2">Sign in</h2>
+                    <input id="email" class="signin-input signin-shadow" type="text">
+                    <input id="password" class="signin-input signin-shadow" type="password">
+                    <button type="submit" class="signin-btn signin-shadow">Sign in</button>
+                    <p id="errorMessage" style="color: red;"></p>
+                </form>
+                <script src="js/script.js"></script>
+
+        </div>
+    </main>
+</body>
+</html>
