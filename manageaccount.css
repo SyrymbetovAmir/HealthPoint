@@ -235,12 +235,19 @@ nav.close ~ .dashboard .top{
     width: 100%;
     text-align: left;
 } 
+.table th{
+    padding-left: 5px;
+}
+.table td {
+    padding-left: 5px;
+}
 .access, .action {
     text-align: center;
 }
 .table-header {
-    background-color: rgb(213, 213, 213);
+    background-color: #0E4BF1;
     height: 30px;
+    color: white;
 }
 .table-row {
     border-bottom: 1px solid gray;

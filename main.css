@@ -69,6 +69,7 @@ main {
     border-radius: 15px;
     height: 40px;
     font-size: 18px;
+    padding-left: 10px;
 }
 .signin-btn {
     margin-top: 20px;
