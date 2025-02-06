@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="manageacc.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="img/logo.jpg" alt="">
+            </div>
+            <span class="logo_name">HealthPoint</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="dashboard.html">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dashboard</span>
+                </a> </li>
+                <li><a href="mainshedule.html">
+                    <i class="uil uil-schedule"></i>
+                    <span class="link-name">Shedule</span>
+                </a> </li>
+                <li><a href="manageacc.html">
+                    <i class="uil uil-user"></i>
+                    <span class="link-name">Manage accounts</span>
+                </a> </li>
+            </ul>
+            <ul class="logout-mode">
+                <li><a href="main.html">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a> </li>
+                <li class="mode">
+                    <a href="#">
+                    <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+                <div class="mode-toggle">
+                    <span class="switch"></span>
+                </div>
+            </li>
+
+            </ul>
+        </div>
+    </nav>
+    
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+        </div>
+        <div class="main">
+            <h2 class="h2">Account management</h2>
+            <div class="settings">
+                <a class="add-acc" href="#">+ Add account</a>
+                <a class="reload" href="#">Reload</a>
+            </div>
+            <table class="table">
+                <tr class="table-header">
+                    <th class="id">ID</th>
+                    <th class="email">Email</th>
+                    <th class="access">Access</th>
+                    <th class="action">Action</th>
+                </tr>
+                <tr class="table-row">
+                    <th class="id"></th>
+                    <th class="email"></th>
+                    <th class="access"><input type="checkbox" name="" id=""></th>
+                    <th class="action"><a class="action-a" href="#">DELETE</a></th>
+                </tr>
+            </table>
+        </div>
+        <div class="hidden" id="modal-overlay">
+            <div id="modal-card">
+              <h3>Add account</h3>
+              <form id="add-account-form">
+                <label>
+                  Email
+                  <input type="email" id="email" placeholder="Email" required />
+                </label>
+                <label>
+                  Password
+                  <input type="password" id="password" placeholder="Password" required />
+                </label>
+                <label>Role</label>
+                <div class="radio-group">
+                <input type="radio" name="role" id="doctor" value="doctor">
+                <label for="doctor" class="radio-label">Doctor</label>
+    
+                <input type="radio" name="role" id="admin" value="admin">
+                <label for="admin" class="radio-label">Admin</label>
+                </div>
+                <div class="modal-buttons">
+                  <button type="button" id="cancel-button">Cancel</button>
+                  <button type="submit" id="add-button">Add account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+    </section>
+    
+    <script src="manageacc.js"></script>
+</body>
+</html>
