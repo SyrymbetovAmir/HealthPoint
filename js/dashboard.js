@@ -19,6 +19,7 @@ const checkAdminRole = async () => {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+                'X-Session-Token': `${localStorage.getItem("sessionToken")}`
             },
         });
 
