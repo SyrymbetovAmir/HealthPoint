@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             localStorage.setItem("token", data.token); // Сохраняем токен
+            localStorage.setItem("sessionToken", data.sessionToken);
 
             alert("Успешный вход!");
             window.location.href = "dashboard.html"; // Перенаправляем на другой экран (если есть)
