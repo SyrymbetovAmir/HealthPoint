@@ -2,7 +2,7 @@ const body = document.querySelector("body"),
       modeToggle = body.querySelector(".mode-toggle"),
       sidebar = body.querySelector("nav"),
       sidebarToggle = body.querySelector(".sidebar-toggle"),
-      manageAccLink = document.querySelector('a[href="manageacc.html"]');
+      manageAccLink = body.querySelector(".hid");
 
 modeToggle.addEventListener("click", () =>{
     body.classList.toggle("dark");
