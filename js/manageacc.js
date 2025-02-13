@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'X-Session-Token': localStorage.getItem("sessionToken")
+            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
           },
         });
   
