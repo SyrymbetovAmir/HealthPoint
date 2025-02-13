@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
           },
           body: JSON.stringify({ isAdmin }), // Передаём новый статус
         });
@@ -110,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
           },
         });
   
