@@ -1,24 +1,9 @@
 {
     "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "headers": {
-          "Cache-Control": "public, max-age=3600, immutable"
-        }
-      }
-    ],
     "rewrites": [
       {
         "source": "/:path",
         "destination": "/:path.html"
-      }
-    ],
-    "redirects": [
-      {
-        "source": "/old-page",
-        "destination": "/new-page",
-        "permanent": true
       }
     ]
   }
