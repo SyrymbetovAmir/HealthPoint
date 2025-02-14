@@ -37,9 +37,6 @@ function closeModal() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".reload").addEventListener("click", openModal);
-    document.getElementById("close-modal").addEventListener("click", closeModal);
-
     const reloadButton = document.querySelector(".reload");
     const tableBody = document.querySelector(".table");
   
