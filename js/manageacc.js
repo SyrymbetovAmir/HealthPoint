@@ -1,131 +1,67 @@
-const body = document.querySelector("body"),
-      modeToggle = body.querySelector(".mode-toggle");
-      sidebar = body.querySelector("nav");
-      sidebarToggle = body.querySelector(".sidebar-toggle");
+// Функция для создания и отображения кастомного поп-апа
+function showPopup(message, type = "success") {
+  const popup = document.createElement("div");
+  popup.classList.add("custom-popup", type);
+  popup.textContent = message;
+  document.body.appendChild(popup);
 
-modeToggle.addEventListener("click", () =>{
-    body.classList.toggle("dark");
+  setTimeout(() => {
+      popup.classList.add("show");
+  }, 10);
 
-});
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
+  setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => popup.remove(), 300);
+  }, 3000);
+}
 
-})
+// Функции для открытия и закрытия модального окна
+function openModal() {
+  document.getElementById("modal-overlay").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal-overlay").style.display = "none";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    const reloadButton = document.querySelector(".reload");
-    const tableBody = document.querySelector(".table");
-  
-    // Функция для загрузки данных
-    const loadDoctors = async () => {
+  document.getElementById("add-account-button").addEventListener("click", openModal);
+  document.getElementById("close-modal").addEventListener("click", closeModal);
+
+  const reloadButton = document.querySelector(".reload");
+  const tableBody = document.querySelector(".table");
+
+  const loadDoctors = async () => {
       try {
-        const response = await fetch("http://161.35.76.1:3000/admin/doctors", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки данных");
-        }
-  
-        const doctors = await response.json();
-        renderDoctors(doctors);
+          const response = await fetch("http://161.35.76.1:3000/admin/doctors", {
+              method: "GET",
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  'X-Session-Token': `${localStorage.getItem("sessionToken")}`
+              },
+          });
+
+          if (!response.ok) {
+              throw new Error("Ошибка загрузки данных");
+          }
+
+          const doctors = await response.json();
+          renderDoctors(doctors);
+          showPopup("Список докторов обновлен", "success");
       } catch (error) {
-        console.error("Ошибка:", error.message);
+          showPopup("Ошибка загрузки данных", "error");
       }
-    };
-  
-    // Функция для отображения данных в таблице
-    const renderDoctors = (doctors) => {
-      const rows = doctors.map((doctor) => `
-        <tr class="table-row">
-          <td class="id">${doctor.id}</td>
-          <td class="email">${doctor.email}</td>
-          <td class="access">
-            <input type="checkbox" ${doctor.isAdmin ? "checked" : ""} data-id="${doctor.id}" class="access-checkbox">
-          </td>
-          <td class="action">
-            <a href="#" class="action-a delete-button" data-id="${doctor.id}">DELETE</a>
-          </td>
-        </tr>
-      `).join("");
-  
-      // Добавляем строки в таблицу
-      tableBody.innerHTML = `
-        <tr class="table-header">
-          <th class="id">ID</th>
-          <th class="email">Email</th>
-          <th class="access">Access</th>
-          <th class="action">Action</th>
-        </tr>
-        ${rows}
-      `;
-    };
-  
-    reloadButton.addEventListener("click", (e) => {
+  };
+
+  reloadButton.addEventListener("click", (e) => {
       e.preventDefault();
       loadDoctors();
-    });
-  
-    loadDoctors(); // Загружаем данные при загрузке страницы
   });
 
-  document.addEventListener("change", async (event) => {
-    if (event.target.classList.contains("access-checkbox")) {
-      const doctorId = event.target.dataset.id; // ID доктора
-      const isAdmin = event.target.checked; // Новый статус роли
-  
-      try {
-        const response = await fetch(`http://161.35.76.1:3000/admin/users/${doctorId}/role`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
-          },
-          body: JSON.stringify({ isAdmin }), // Передаём новый статус
-        });
-  
-        if (!response.ok) {
-          throw new Error("Ошибка обновления роли");
-        }
-  
-        alert("Роль успешно обновлена");
-      } catch (error) {
-        console.error("Ошибка:", error.message);
-        alert("Не удалось обновить роль. Проверьте настройки API.");
-      }
-    }
-  });
+  loadDoctors();
+});
 
-  document.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("delete-button")) {
-      event.preventDefault();
-  
-      const doctorId = event.target.dataset.id;
-  
-      try {
-        const response = await fetch(`http://161.35.76.1:3000/admin/doctors/${doctorId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'X-Session-Token': `${localStorage.getItem("sessionToken")}`
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error("Не удалось удалить доктора");
-        }
-  
-        alert("Доктор успешно удалён");
-        event.target.closest(".table-row").remove(); // Удаляем строку из таблицы
-      } catch (error) {
-        console.error("Ошибка:", error.message);
-      }
-    }
-  });
+
 
   document.addEventListener("DOMContentLoaded", () => {
     const modalOverlay = document.getElementById("modal-overlay");
@@ -151,23 +87,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     // Обработка формы (добавление нового аккаунта)
-    document.getElementById("add-account-form").addEventListener("submit", (e) => {
+    document.getElementById("add-account-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-  
-      const account = document.getElementById("account").value;
+    
       const email = document.getElementById("email").value;
-      const description = document.getElementById("description").value;
-      const access = document.getElementById("access").checked;
-  
-      console.log({
-        account,
-        email,
-        description,
-        access,
-      });
-  
-      alert("Account added successfully!");
-      modalOverlay.style.display = "none"; // Закрываем окно после успешного добавления
+      const password = document.getElementById("password").value;
+      const role = document.querySelector('input[name="role"]:checked')?.value;
+      const modalOverlay = document.getElementById("modal-overlay");
+    
+      if (!role) {
+          showPopup("Выберите роль!", "error");
+          return;
+      }
+    
+      try {
+          const response = await fetch("http://161.35.76.1:3000/auth/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password, role }),
+          });
+    
+          if (!response.ok) {
+              throw new Error("Ошибка регистрации доктора");
+          }
+    
+          showPopup("Доктор успешно зарегистрирован!", "success");
+          modalOverlay();
+      } catch (error) {
+          showPopup("Не удалось зарегистрировать доктора", "error");
+      }
     });
   
     // Скрываем модалку по умолчанию
