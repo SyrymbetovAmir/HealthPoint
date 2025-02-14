@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("sessionToken", data.sessionToken);
 
             alert("Успешный вход!");
-            window.location.href = "dashboard.html"; // Перенаправляем на другой экран (если есть)
+            window.location.href = "/dashboard"; // Перенаправляем на другой экран (если есть)
         } catch (error) {
             errorMessage.textContent = error.message;
         }
